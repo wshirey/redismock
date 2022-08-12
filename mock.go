@@ -141,6 +141,9 @@ func (m *mock) process(cmd redis.Cmder) (err error) {
 		if m.strictOrder {
 			e.unlock()
 			cmd.SetErr(err)
+			if m.panicOnErr {
+				panic(err)
+			}
 			return err
 		}
 		e.unlock()
@@ -180,6 +183,9 @@ func (m *mock) process(cmd redis.Cmder) (err error) {
 	if !expect.isSetVal() {
 		err = fmt.Errorf("cmd(%s), return value is required", expect.name())
 		cmd.SetErr(err)
+		if m.panicOnErr {
+			panic(err)
+		}
 		return err
 	}
 
