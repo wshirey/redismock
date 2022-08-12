@@ -66,6 +66,7 @@ func newMock(clientType int) *mock {
 		m.client = clusterClient
 	}
 	m.strictOrder = true
+	m.panicOnErr = true
 
 	return m
 }
